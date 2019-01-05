@@ -40,6 +40,22 @@ defmodule PhoenixExample.Web.ArtistController do
     end
   end
 
+  def update(conn, %{"id" => id, "name" => name, "gender" => gender}) do
+    artist = Repo.get(Artists, id)
+    if artist != nil do
+      case Repo.update(Artists.changeset(artist, %{id: artist.id, name: name, gender: gender})) do
+        {:ok, struct}       -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
+        {:error, changeset} ->
+          conn
+          |> put_status(:unprocessable_entity)
+          |> json %{id: artist.id, name: artist.name, gender: artist.gender}
+      end
+    else
+      conn
+      |> put_status(:not_found)
+      |> json %{message: "Not Found"}
+    end
+  end
 
   def delete(conn, %{"id" => id}) do
     artist = Repo.get(Artists, id)
