@@ -12,7 +12,7 @@ defmodule PhoenixExample.Schema.Musics do
   @doc false
   def changeset(musics, attrs) do
     musics
-    |> cast(attrs, [:name, :genre, :artists])
-    |> validate_required([:name, :genre, :artists])
+    |> cast(attrs, [:name, :genre, :artists_id])
+    |> validate_required([:name, :genre, :artists_id])
   end
 end

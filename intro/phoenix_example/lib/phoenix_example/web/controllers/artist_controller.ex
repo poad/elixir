@@ -7,7 +7,8 @@ defmodule PhoenixExample.Web.ArtistController do
   plug :action
 
   def index(conn, _params) do
-    json conn, Enum.map(Repo.all(Artists), fn(artist) -> %{id: artist.id, name: artist.name, gender: artist.gender} end)
+    json conn,
+         Enum.map(Repo.all(Artists), fn (artist) -> %{id: artist.id, name: artist.name, gender: artist.gender} end)
   end
 
   def create(conn, %{"name" => name, "gender" => gender}) do
@@ -17,7 +18,7 @@ defmodule PhoenixExample.Web.ArtistController do
     else
       changeset = Artists.changeset(%Artists{}, %{name: name, gender: gender})
       case Repo.insert(changeset) do
-        {:ok, struct}       ->
+        {:ok, struct} ->
           conn
           |> json %{id: struct.id, name: struct.name, gender: struct.gender}
         {:error, _} ->
@@ -44,7 +45,7 @@ defmodule PhoenixExample.Web.ArtistController do
     artist = Repo.get(Artists, id)
     if artist != nil do
       case Repo.update(Artists.changeset(artist, %{id: artist.id, name: name, gender: gender})) do
-        {:ok, struct}       -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
+        {:ok, struct} -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
         {:error, _} ->
           conn
           |> put_status(:unprocessable_entity)
@@ -61,11 +62,11 @@ defmodule PhoenixExample.Web.ArtistController do
     artist = Repo.get(Artists, id)
     if artist != nil do
       case Repo.delete(artist) do
-         {:ok, struct}       -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
-         {:error, _} ->
-           conn
-           |> put_status(:unprocessable_entity)
-           |> json %{id: artist.id, name: artist.name, gender: artist.gender}
+        {:ok, struct} -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
+        {:error, _} ->
+          conn
+          |> put_status(:unprocessable_entity)
+          |> json %{id: artist.id, name: artist.name, gender: artist.gender}
       end
     else
       conn

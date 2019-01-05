@@ -6,9 +6,9 @@ defmodule PhoenixExample.Web.Endpoint do
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/",
-    from: :phoenix_example,
-    json_decoder: Phoenix.json_library()
+       at: "/",
+       from: :phoenix_example,
+       json_decoder: Phoenix.json_library()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -22,9 +22,9 @@ defmodule PhoenixExample.Web.Endpoint do
   plug Plug.Logger
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
-    pass: ["*/*"],
-    json_decoder: Phoenix.json_library()
+       parsers: [:urlencoded, :multipart, :json],
+       pass: ["*/*"],
+       json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -33,9 +33,9 @@ defmodule PhoenixExample.Web.Endpoint do
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
-    store: :cookie,
-    key: "_phoenix_example_key",
-    signing_salt: "sp1CHTK0"
+       store: :cookie,
+       key: "_phoenix_example_key",
+       signing_salt: "sp1CHTK0"
 
   plug PhoenixExample.Web.Router
 end
