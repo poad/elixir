@@ -9,7 +9,7 @@ defmodule PhoenixExample.Web.Router do
   scope "/", PhoenixExample.Web do
     pipe_through :api
 
-    resources "/", ArtistController, except: [:new, :edit]
+    resources "/artists", ArtistController, except: [:new, :edit]
 
     resources "/musics", MusicController, except: [:new, :edit]
   end

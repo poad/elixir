@@ -20,7 +20,7 @@ defmodule PhoenixExample.Web.ArtistController do
         {:ok, struct}       ->
           conn
           |> json %{id: struct.id, name: struct.name, gender: struct.gender}
-        {:error, changeset} ->
+        {:error, _} ->
           conn
           |> put_status(:unprocessable_entity)
           |> json %{name: name, gender: gender}
@@ -45,7 +45,7 @@ defmodule PhoenixExample.Web.ArtistController do
     if artist != nil do
       case Repo.update(Artists.changeset(artist, %{id: artist.id, name: name, gender: gender})) do
         {:ok, struct}       -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
-        {:error, changeset} ->
+        {:error, _} ->
           conn
           |> put_status(:unprocessable_entity)
           |> json %{id: artist.id, name: artist.name, gender: artist.gender}
@@ -62,7 +62,7 @@ defmodule PhoenixExample.Web.ArtistController do
     if artist != nil do
       case Repo.delete(artist) do
          {:ok, struct}       -> json conn, %{id: struct.id, name: struct.name, gender: struct.gender}
-         {:error, changeset} ->
+         {:error, _} ->
            conn
            |> put_status(:unprocessable_entity)
            |> json %{id: artist.id, name: artist.name, gender: artist.gender}
